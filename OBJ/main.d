@@ -42,3 +42,4 @@
 ..\obj\main.o: ..\HARDWARE\PWM.h
 ..\obj\main.o: ..\HARDWARE\CAN.h
 ..\obj\main.o: ..\HARDWARE\PID.h
+..\obj\main.o: ..\HARDWARE\DMA.h

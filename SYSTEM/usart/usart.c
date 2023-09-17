@@ -71,7 +71,7 @@ u16 USART_RX_STA=0;
 
 		
 		 //UART(通用异步收发器） 初始化设置，同usart
-		USART_InitStructure.USART_BaudRate = bound;//一般设置为 9600;
+		USART_InitStructure.USART_BaudRate = bound;//一般设置为 115200;
 		USART_InitStructure.USART_WordLength = USART_WordLength_8b;
 		USART_InitStructure.USART_StopBits = USART_StopBits_1;
 		USART_InitStructure.USART_Parity = USART_Parity_No;
@@ -148,29 +148,34 @@ u16 USART_RX_STA=0;
 		if(USART_GetITStatus(UART5, USART_IT_RXNE) != RESET)
 		//接收中断(接收到的数据必须是 0x0d 0x0a 结尾)
 		{
-			Res =USART_ReceiveData(UART5);//(UART5->DR); //读取接收到的数据
-			if((USART_RX_STA&0x8000)==0)//接收未完成
-			{
-				if(USART_RX_STA&0x4000)//接收到了 0x0d
-				{
-					if(Res!=0x0a)
-						USART_RX_STA=0;//接收错误,重新开始
-					else 
-						USART_RX_STA|=0x8000; //接收完成了
-				}
-				else //还没收到 0X0D
-				{
-					if(Res==0x0d)
-						USART_RX_STA|=0x4000;
-					else
-					{
-						USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
-						USART_RX_STA++;
-						if(USART_RX_STA>(USART_REC_LEN-1))USART_RX_STA=0;
-						//接收数据错误,重新开始接收
-					}
-				}
-			}
+//			Res =USART_ReceiveData(UART5);//(UART5->DR); //读取接收到的数据
+//			if((USART_RX_STA&0x8000)==0)//接收未完成
+//			{
+//				if(USART_RX_STA&0x4000)//接收到了 0x0d
+//				{
+//					if(Res!=0x0a)
+//						USART_RX_STA=0;//接收错误,重新开始
+//					else 
+//						USART_RX_STA|=0x8000; //接收完成了
+//				}
+//				else //还没收到 0X0D
+//				{
+//					if(Res==0x0d)
+//						USART_RX_STA|=0x4000;
+//					else
+//					{
+//						USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
+//						USART_RX_STA++;
+//						if(USART_RX_STA>(USART_REC_LEN-1))USART_RX_STA=0;
+//						//接收数据错误,重新开始接收
+//					}
+//				}
+//			}
+//			
+		(void)UART5->SR;
+		(void)UART5->DR; 
+			
+			
 		}
 		#if SYSTEM_SUPPORT_OS //如果 SYSTEM_SUPPORT_OS 为真，则需要支持 OS.
 			OSIntExit();

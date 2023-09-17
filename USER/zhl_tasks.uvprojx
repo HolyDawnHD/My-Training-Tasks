@@ -798,6 +798,11 @@
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\PID.c</FilePath>
             </File>
+            <File>
+              <FileName>DMA.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\DMA.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
