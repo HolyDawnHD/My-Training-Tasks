@@ -189,7 +189,7 @@ int main(void)
 }
 
 */
-
+/*
 
 // ***************************09/17dma作业能用*******************
 //这一版能用了，跟着教程来的
@@ -263,10 +263,10 @@ int main(void)
 	
 }
 
+*/
 
 
 
-/*
 
 // ***********************09/14 初版****************
 
@@ -280,7 +280,7 @@ PidTypeDef  Pid_Speed,Pid_Ecd;
 #define speed 0
 #define ecd 1
 
-u32 t=0,if_show_position=0,time_forward=0,time_backward=1;//表演模式 1开启 0关闭
+u32 t=0,if_show_position=0,time_forward=0,time_backward=0;//表演模式 1开启 0关闭
 u32 if_position_control=1;//1 位置控制 0 速度控制
 float ecd_degree,speed_rpm,delta=0.0f;
 
@@ -309,8 +309,8 @@ int main()
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	
 	
-	speed_rpm=150.0f;         //转速
-	ecd_degree=2000.0f;           //位置，单位degree
+	speed_rpm=2000.0f;         //转速
+	ecd_degree=360.0f;           //位置，单位degree
 	uart_init(115200);
 	LED_Init();
 	LED_R=0;
@@ -321,7 +321,7 @@ int main()
 
 	
 
-	PID_Init(&Pid_Speed,PID_POSITION,kp_speed,ki_speed,kd_speed,30000.0f,5000.0f);
+	PID_Init(&Pid_Speed,PID_POSITION,kp_speed,ki_speed,kd_speed,16384.0f,5000.0f);
 	PID_Init(&Pid_Ecd,PID_POSITION,kp_ecd,ki_ecd,kd_ecd,8192.0f,8192.0f);
 	
 	CAN1_mode_init(CAN_SJW_1tq, CAN_BS2_7tq, CAN_BS1_6tq, 3);
@@ -343,79 +343,80 @@ int main()
 			LED_R=!LED_R;
 			
 		}
-		//CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,ecd_degree,position);
+		CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,ecd_degree,position);
 		
-		if(if_show_position&&if_position_control)//表演模式 反转6圈正转3圈停在0°位置
-		{
-			if(time_backward<=6)
-			{
-				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
-				delta-=1.0f;
-				if(delta < -360.0f) 
-				{
-					delta+=360.0f;
-					time_backward++;
-				}
-			}
-			else if(time_forward<=3)
-			{
-				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
-				delta+=1.0f;
-				if(delta>360.0f) 
-				{
-					delta-=360.0f;
-					time_forward++;
-				}
-			}
-			else
-			{
-				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,0.0f,position);
-			}
-		}
-		else if(if_position_control)//位置控制，可以超过360°
-		{
-			if(ecd_degree < -360.0f)
-			{
-				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
-				delta-=1.0f;
-				if(delta < -360.0f) 
-				{
-					delta+=360.0f;
-					ecd_degree+=360.0f;
-				}
-			}
-			else if(delta>=ecd_degree&&ecd_degree<0)
-			{
-				
-				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
-				delta-=1.0f;
-			}
-			else if(ecd_degree>360.0f)
-			{
-				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
-				delta+=1.0f;
-				if(delta>360.0f) 
-				{
-					delta-=360.0f;
-					ecd_degree-=360.0f;
-				}
-			}
-			else if(delta<=ecd_degree&&ecd_degree>0)
-			{
-				
-				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
-				delta+=1.0f;
-			}
-			else
-			{
-				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,ecd_degree,position);
-			}
-		}
-		else//速度控制，制定转速
-		{
-			CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,ecd_degree,speed);
-		}
+		
+//		if(if_show_position&&if_position_control)//表演模式 反转6圈正转3圈停在0°位置
+//		{
+//			if(time_backward<=6)
+//			{
+//				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
+//				delta-=10.0f;
+//				if(delta < -360.0f) 
+//				{
+//					delta+=360.0f;
+//					time_backward++;
+//				}
+//			}
+//			else if(time_forward<=3)
+//			{
+//				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
+//				delta+=10.0f;
+//				if(delta>360.0f) 
+//				{
+//					delta-=360.0f;
+//					time_forward++;
+//				}
+//			}
+//			else
+//			{
+//				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,0.0f,position);
+//			}
+//		}
+//		else if(if_position_control)//位置控制，可以超过360°
+//		{
+//			if(ecd_degree <= -360.0f)
+//			{
+//				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
+//				delta-=10.0f;
+//				if(delta < -360.0f) 
+//				{
+//					delta+=360.0f;
+//					ecd_degree+=360.0f;
+//				}
+//			}
+//			else if(delta>=ecd_degree&&ecd_degree<0)
+//			{
+//				
+//				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
+//				delta-=10.0f;
+//			}
+//			else if(ecd_degree>=360.0f)
+//			{
+//				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
+//				delta+=10.0f;
+//				if(delta>360.0f) 
+//				{
+//					delta-=360.0f;
+//					ecd_degree-=360.0f;
+//				}
+//			}
+////			else if(delta<=ecd_degree&&ecd_degree>0)
+////			{
+////				
+////				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,delta,position);
+////				delta+=1.0f;
+////			}
+//			else
+//			{
+//				CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,ecd_degree,position);
+//			}
+//		}
+//		else//速度控制，制定转速
+//		{
+//			CAN1_CMD_TRANSMIT(&Pid_Speed,&Pid_Ecd,speed_rpm,ecd_degree,speed);
+//		}
 	}
 }
 
-*/
+

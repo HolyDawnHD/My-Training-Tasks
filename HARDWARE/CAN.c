@@ -107,6 +107,8 @@ float yaw0;
 int16_t yaw1,yaw;
 fp32 get_motor_ecd_degree;
 
+
+//这是恒定转速到指定位置的方案1
 void PID_OVER_ZERO (float *set,float *get)
 {
 	if(*set - *get > 180.0f)
@@ -123,10 +125,26 @@ void PID_OVER_ZERO (float *set,float *get)
 }
 
 
+//void PID_OVER_ZERO (float *set,float *get)
+//{
+//	if(motor.ecd-motor.last_ecd<-4096)
+//	{
+//		*get += 360.0f;
+//		
+//	}
+//	else if (motor.ecd-motor.last_ecd>4096)
+//	{
+//		*get -= 360.0f;
+//	}
+//	
+//	
+//}
+
+float real_ecd_degree;
 void CAN1_CMD_TRANSMIT(PidTypeDef *pid_speed,PidTypeDef *pid_ecd, float set_motor_speed,float set_motor_ecd,u16 now_mode)
 {
 	
-    TxMessage.StdId =0x1FF ; //0x1FF  0x200
+    TxMessage.StdId =0x200 ; //0x1FF  0x200
 	
     TxMessage.IDE = 0x00000000;
     TxMessage.RTR = 0x00000000;
@@ -140,9 +158,19 @@ void CAN1_CMD_TRANSMIT(PidTypeDef *pid_speed,PidTypeDef *pid_ecd, float set_moto
 	else if(now_mode==position)
 	{
 		get_motor_ecd_degree=(fp32)motor.ecd/8191.0f*360.0f;
-		PID_OVER_ZERO(&set_motor_ecd,&get_motor_ecd_degree);
+		//PID_OVER_ZERO(&set_motor_ecd,&get_motor_ecd_degree);
 		
-		yaw0=PID_Calc(pid_ecd,get_motor_ecd_degree,set_motor_ecd);
+		if(motor.ecd-motor.last_ecd<-4000)
+		{
+			motor.round++;
+		}
+		if(motor.ecd-motor.last_ecd>4000)
+		{
+			motor.round--;
+		}
+		real_ecd_degree = get_motor_ecd_degree+360*motor.round;
+		
+		yaw0=PID_Calc(pid_ecd,real_ecd_degree,set_motor_ecd);
 		yaw=(int16_t)PID_Calc(pid_speed,motor.speed_rpm,yaw0);
 	}
 	

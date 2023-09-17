@@ -38,7 +38,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAE)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAE)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAE)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAE)
-F (.\main.c)(0x65072733)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\FWLIB\inc -I ..\CORE -I ..\USER -I ..\HARDWARE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart-IC:\Users\Lenovo\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.12.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Lenovo\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.12.0\Device\Include-D__UVISION_VERSION="534" -DSTM32F405xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x65073BA9)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\FWLIB\inc -I ..\CORE -I ..\USER -I ..\HARDWARE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart-IC:\Users\Lenovo\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.12.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Lenovo\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.12.0\Device\Include-D__UVISION_VERSION="534" -DSTM32F405xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (stm32f4xx.h)(0x53DBA48A)
 I (..\CORE\core_cm4.h)(0x53C7D532)
 I (D:\MDK\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -80,7 +80,7 @@ I (..\HARDWARE\LED.h)(0x64F87499)
 I (..\SYSTEM\usart\usart.h)(0x64F9C2E6)
 I (D:\MDK\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (..\HARDWARE\PWM.h)(0x64FD4B79)
-I (..\HARDWARE\CAN.h)(0x6506B8A5)
+I (..\HARDWARE\CAN.h)(0x65073587)
 I (..\HARDWARE\PID.h)(0x6501F4A3)
 I (..\HARDWARE\DMA.h)(0x650726B0)
 F (.\system_stm32f4xx.c)(0x53DBB430)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\FWLIB\inc -I ..\CORE -I ..\USER -I ..\HARDWARE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart-IC:\Users\Lenovo\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.12.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Lenovo\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.12.0\Device\Include-D__UVISION_VERSION="534" -DSTM32F405xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\system_stm32f4xx.o --omf_browse ..\obj\system_stm32f4xx.crf --depend ..\obj\system_stm32f4xx.d)
@@ -1565,8 +1565,8 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAE)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAE)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAE)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAE)
-F (..\HARDWARE\CAN.c)(0x65055F85)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\FWLIB\inc -I ..\CORE -I ..\USER -I ..\HARDWARE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart-IC:\Users\Lenovo\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.12.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Lenovo\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.12.0\Device\Include-D__UVISION_VERSION="534" -DSTM32F405xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\can.o --omf_browse ..\obj\can.crf --depend ..\obj\can.d)
-I (..\HARDWARE\CAN.h)(0x6506B8A5)
+F (..\HARDWARE\CAN.c)(0x65073A41)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\FWLIB\inc -I ..\CORE -I ..\USER -I ..\HARDWARE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart-IC:\Users\Lenovo\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.12.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Lenovo\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.12.0\Device\Include-D__UVISION_VERSION="534" -DSTM32F405xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\can.o --omf_browse ..\obj\can.crf --depend ..\obj\can.d)
+I (..\HARDWARE\CAN.h)(0x65073587)
 I (..\SYSTEM\sys\sys.h)(0x64F9CECE)
 I (..\USER\stm32f4xx.h)(0x53DBA48A)
 I (..\CORE\core_cm4.h)(0x53C7D532)

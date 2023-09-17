@@ -19,6 +19,7 @@ typedef struct
     int16_t given_current;
     uint8_t temperate;
     int16_t last_ecd;
+	int16_t round;
 } motor_measure_t;
 
 
